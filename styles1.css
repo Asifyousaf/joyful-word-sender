@@ -9,25 +9,26 @@
   scroll-snap-type: y mandatory;
   overflow-y: scroll;
   height: 100vh;
-  
-
 }
+
 #first-section, #second-section, #third-section,#footercolor{
   scroll-snap-align: start;
   overflow-y: scroll;
   overflow: hidden;
 }
+
 html, body {
   width: 100%;
   overflow-x: hidden; 
 }
+
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
-
+/* First section styling */
 #first-section {
     background-image: url("Images/cubicbg12.png");
     background-position: center;
@@ -86,37 +87,32 @@ html, body {
     font-family: "Roboto Mono", sans-serif;
     font-size: 1.6vw;
 }
-/* Hamburger menu icon */
+/* Hamburger menu and mobile navigation */
 .hamburger {
-  display: none; /* Hide by default */
+  display: none; /* Hide by default on desktop */
   position: fixed;
   top: 20px;
   right: 20px;
   font-size: 30px;
   cursor: pointer;
   z-index: 1001;
-}
-.nav__wrapper {
-    position: fixed;
-    top: 50%;
-    right: 20px;
-    transform: translateY(-50%);
-    z-index: 1000; 
-    padding: 10px; 
+  color: white;
 }
 
 .mobile-menu {
-  font-family:'Roboto Mono';
+  font-family: 'Roboto Mono';
   display: none; 
   list-style: none;
-  padding: 0;
+  padding: 10px;
   margin: 0;
-  background-color: #000000; 
+  background-color: rgba(0, 0, 0, 0.9); 
   position: absolute;
   top: 40px; 
   right: 0;
-  width: 250px; 
+  width: 200px; 
+  border-radius: 5px;
   border: 1px solid #444; 
+  z-index: 1000;
 }
 
 .mobile-menu li {
@@ -124,29 +120,46 @@ html, body {
   text-align: center;
 }
 
+.mobile-menu li:last-child {
+  border-bottom: none;
+}
+
 .mobile-menu li a {
   display: block;
-  padding: 10px;
+  padding: 12px;
   color: white;
   text-decoration: none;
-  
+  font-size: 16px;
 }
 
 .mobile-menu li a:hover {
-
-  background-color: #555; /* Darker background on hover */
+  background-color: #555; 
 }
+
+/* Desktop navigation styling */
+.nav__wrapper {
+  position: fixed;
+  top: 50%;
+  right: 20px;
+  transform: translateY(-50%);
+  z-index: 1000; 
+  padding: 10px; 
+  display: block; /* By default shown on desktop */
+}
+
 .line {
-    position: fixed;
-    top: 50%;
-    right: 26px;
-    transform: translateY(-50%);
-    height: 182px;
-    width: 4px;
-    z-index: 1000;
-    background-color: #f8f6f6;
-    transition: all 0.3s ease-in-out;
-  }
+  position: fixed;
+  top: 50%;
+  right: 26px;
+  transform: translateY(-50%);
+  height: 182px;
+  width: 4px;
+  z-index: 1000;
+  background-color: #f8f6f6;
+  transition: all 0.3s ease-in-out;
+}
+
+/* Side navigation styling */
 #side_nav {
   list-style: none;
   padding: 0;
@@ -218,9 +231,7 @@ html, body {
   transition: transform 0.3s ease-in-out;
 } 
 
-
-
-
+/* Second section styling */
 #second-section{
   background-image: url("Images/cubicbg2.png");
   background-position: center;
@@ -232,51 +243,45 @@ html, body {
   align-items: center;
   position: relative;
   text-align: center;
-}#Textmain4{
-    font-family: "Roboto mono", sans-serif;
-    font-size: 80px;
-    position: relative;
-    font-weight: 700;
-    color: white;
-    padding-bottom: 57.6px;
-   
-}
-.container2 {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 20px; /* Adjust gap between boxes */
-  max-width: 1200px; /* Limit maximum width for better responsiveness */
-  width: 90%; /* Adjust width as needed */
-  margin-top: 30px; /* Add margin for spacing */
+  min-height: 100vh;
+  padding: 40px 0;
 }
 
-.row {
-  display: flex; 
-  gap: 0.5px; 
+#Textmain4{
+  font-family: "Roboto mono", sans-serif;
+  font-size: 5rem;
+  position: relative;
+  font-weight: 700;
+  color: white;
+  padding-bottom: 40px;
+  margin-top: 20px;
 }
-/* for future
+
+.container2 {
+  width: 90%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.expertise-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 20px;
+  justify-content: center;
+  width: 100%;
+}
+
 .square {
-  overflow: hidden;
   border: 1px solid rgb(255, 255, 255);
   text-align: center;
-    width: 350px; 
-    padding: 20px;
-  height: 19vw;
-  overflow: hidden; 
-  max-width: 100%; 
-}*/
-.square {
-  border: 1px solid rgb(255, 255, 255);
-  text-align: center;
-  width: 340px; 
   padding: 20px;
   height: 340px;
   transition: all 0.3s ease;
   overflow: hidden; 
   max-width: 100%;
   border-style: solid;
-  
+  width: 100%;
 }
 
 .sq1 {
@@ -447,40 +452,67 @@ html, body {
   align-items: center;
   position: relative;
   text-align: center;
-  padding-top: 100px;
+  padding: 60px 0;
+  min-height: 100vh;
 }
 
 #Textmain5{
   font-family: "Roboto mono", sans-serif;
-    font-size: 84px;
-    position: relative;
-    font-weight: 700;
-    color: white;
-  
+  font-size: 5rem;
+  position: relative;
+  font-weight: 700;
+  color: white;
+  margin-bottom: 40px;
 }
-.projects{
+
+.containerS3 {
+  width: 90%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.projects-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+  gap: 20px;
+  justify-content: center;
+  width: 100%;
+}
+
+.card {
+  margin-bottom: 20px;
+}
+
+.box {
+  height: 300px;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.9);
+}
+
+.box img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.projects {
+  display: inline-block;
   width: 220px;
   font-weight: 600;
   font-family: "Roboto flex", sans-serif;
-  margin:50px 50px 10px 10px;
+  margin: 50px auto;
   color: #ffffff;
   text-decoration: none;
-  font-size: 19px; /* Adjust font size to fit the larger card */
+  font-size: 19px;
   background: rgb(80, 27, 129);
   text-align: center;
   padding: 15px 10px; 
 }
-.containerS3{
-  position: relative;
-  width: 1000px;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  margin: 25px;
-  gap: 20px;
-  width: 1250px;
-}
-.containerS3 .card{
+
+.containerS3 .card {
   position: relative;
   height: 250px;
   background: #fff;
@@ -718,13 +750,70 @@ letter-spacing: 1.6px;}
 font-size: 20px;
 }
 #Textmain4{
-  font-size: 45px !important;
- }
-#sq1font{
-  font-size: 25px;
+  font-family: "Roboto mono", sans-serif;
+  font-size:52px !important;
+  font-weight: 700;
+
 }
-#Textmain5{
-  font-size: 40px;
+ 
+  .code-tag, .code-tag1{
+  font-size: 14px !important;}
+  
+.h3-wrapper1::before {
+  bottom: 9px;
+}
+
+.code-tag1::before {
+  font-weight: 400;
+  font-family: "Roboto Mono", sans-serif;
+  content: "<h3>";
+  position: absolute;
+  top: -5px;
+  left: 5px;
+  font-size: 12px !important;
+  color: grey;
+}
+
+.code-tag1::after {
+  font-weight: 400;
+  font-family: "Roboto Mono", sans-serif;
+  content: "</h3>";
+  position: absolute;
+  bottom: -25px;
+  left: -2px;
+  font-size: 17px;
+  color: grey;
+}
+.code-tag::before {
+  font-weight: 400;
+  font-family: "Roboto Mono", sans-serif;
+  content: "<h3>";
+  position: absolute;
+  top: -5px;
+  left: 5px;
+  font-size: 17px;
+  color: grey;
+}
+
+.code-tag::after {
+  font-weight: 400;
+  font-family: "Roboto Mono", sans-serif;
+  content: "</h3>";
+  position: absolute;
+  bottom: -55px;
+  left: -2px;
+  font-size: 17px;
+  color: grey;
+}
+
+.h3-wrapper::before {
+  content: "";
+  position: absolute;
+  left: 25px;
+  top: 30px;
+  bottom: -25px;
+  width: 2px;
+  background: grey;
 }
 .overlay {
   width: 100%;
@@ -942,7 +1031,7 @@ font-size: 20px;
   font-size: 13px;
   width: 140px;
   padding-top: 10px;
-  padding-bottom: 10px;;
+  padding-bottom: 0px;;
   margin-top: 0px;
 }
 .overlay a {
@@ -1063,8 +1152,8 @@ display: none;
     position: relative;
     width: 100%;
   }
-#Textmain2 {
-  font-size: 90px;
+  #Textmain2 {
+    font-size: 90px;
 }
 
 #textmain1 {
@@ -1220,6 +1309,7 @@ font-size: 20px;
 .logo {
   font-size: 20px;
 }
+ 
 .overlay {
   width: 100%;
   height: 210px;
@@ -1292,7 +1382,7 @@ footer {
 
 /* styling the footer background */
 #footercolor{
-  padding: 150px 50px 50px ;
+  padding: 100px 50px 50px ;
   background:url("Images/cubicbg3.png");
 }
 
@@ -1461,4 +1551,189 @@ footer {
   text-decoration: none;
   font-weight: bold;
   font-family: 'Roboto Mono';
+}
+
+/* Extra small devices (phones, 370px and down) */
+@media only screen and (max-width: 370px) {
+  /* Display hamburger menu */
+  .hamburger {
+    display: block;
+  }
+  .nav__wrapper {
+    display: none;
+  }
+  .line {
+    display: none;
+  }
+  
+  /* Header text sizes */
+  #Textmain2 {
+    font-size: 2rem;
+  }
+  #textmain1 {
+    display: none;
+  }
+  #Textmain3 {
+    font-size: 1rem;
+  }
+  #Textmain4 {
+    font-size: 2rem !important;
+  }
+  #Textmain5 {
+    font-size: 2rem;
+  }
+  
+  /* Projects grid */
+  .projects-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  /* Expertise cards */
+  .expertise-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  /* Adjust image sizes and positioning */
+  .htmllogo img {
+    width: 40px;
+    height: 45px;
+  }
+  .csslogo img {
+    width: 55px;
+    height: 55px;
+  }
+  .kotlinlogo img {
+    width: 30px;
+    height: 42px;
+  }
+  
+  /* Adjust typography for smaller screens */
+  .code-tag, .code-tag1 {
+    font-size: 12px !important;
+  }
+  
+  /* Adjust footer elements */
+  .decor-images .decorimg {
+    width: 150px !important;
+  }
+  
+  /* Hide GitHub button on very small screens */
+  .github-button {
+    display: none;
+  }
+  
+  /* Fix project card images on small screens */
+  .box img {
+    transform: none;
+  }
+}
+
+/* Small devices (large phones, 371px to 520px) */
+@media only screen and (min-width: 371px) and (max-width: 520px) {
+  /* Display hamburger menu */
+  .hamburger {
+    display: block;
+  }
+  .nav__wrapper {
+    display: none;
+  }
+  .line {
+    display: none;
+  }
+  
+  /* Header text sizes */
+  #Textmain2 {
+    font-size: 2.5rem;
+  }
+  #Textmain4 {
+    font-size: 2.5rem !important;
+  }
+  
+  /* Projects grid */
+  .projects-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  /* Expertise grid */
+  .expertise-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  /* Adjust footer elements */
+  .decor-images .decorimg {
+    width: 200px !important;
+    top: -130px !important;
+  }
+  .github-button {
+    right: 70px !important;
+  }
+  
+  /* Fix project card images */
+  .box img {
+    transform: none;
+  }
+}
+
+/* Medium devices (tablets, 521px to 768px) */
+@media only screen and (min-width: 521px) and (max-width: 768px) {
+  /* Display hamburger menu */
+  .hamburger {
+    display: block;
+  }
+  .nav__wrapper {
+    display: none;
+  }
+  .line {
+    display: none;
+  }
+  
+  /* Projects grid - 2 columns on medium screens */
+  .projects-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  /* Expertise grid - 2 columns on medium screens */
+  .expertise-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  /* Fix footer positioning */
+  .decor-images .decorimg {
+    width: 250px !important;
+    top: -130px !important;
+  }
+  .github-button {
+    right: 70px !important;
+  }
+}
+
+/* Large devices (desktops, 769px and up) */
+@media only screen and (min-width: 769px) {
+  /* Hide hamburger menu */
+  .hamburger {
+    display: none;
+  }
+  .nav__wrapper {
+    display: block;
+  }
+  
+  /* Projects grid - 2 columns on large screens */
+  .projects-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  /* Expertise grid - 3 columns on large screens */
+  .expertise-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+/* Extra large devices */
+@media only screen and (min-width: 1200px) {
+  /* Projects grid - 2 columns on extra large screens */
+  .projects-grid {
+    grid-template-columns: repeat(2, 1fr);
+    max-width: 1000px;
+    margin: 0 auto;
+  }
 }
