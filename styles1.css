@@ -5,6 +5,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@700&family=Roboto+Mono:ital,wght@0,700;1,700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Handlee&display=swap');
 
+/* Main container and section styles */
 .maincontainer{
   scroll-snap-type: y mandatory;
   overflow-y: scroll;
@@ -20,6 +21,7 @@
 html, body {
   width: 100%;
   overflow-x: hidden; 
+  scroll-behavior: smooth;
 }
 
 * {
@@ -28,7 +30,19 @@ html, body {
     box-sizing: border-box;
 }
 
-/* First section styling */
+/* Reveal animations */
+.reveal {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: all 0.8s ease;
+}
+
+.show {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* First section styles */
 #first-section {
     background-image: url("Images/cubicbg12.png");
     background-position: center;
@@ -51,9 +65,23 @@ html, body {
     font-family: "Roboto Mono";
     font-weight: 900;
     font-size: 20px; 
+    animation: fadeIn 1s ease-in-out;
 }
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
 #logoclr{
     color: blueviolet;
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0% { opacity: 1; }
+    50% { opacity: 0.6; }
+    100% { opacity: 1; }
 }
 
 .container1 {
@@ -65,12 +93,19 @@ html, body {
     gap: 10px; 
     text-align: center;
     position: relative;
+    animation: slideUp 1.2s ease-out;
+}
+
+@keyframes slideUp {
+    from { opacity: 0; transform: translateY(50px); }
+    to { opacity: 1; transform: translateY(0); }
 }
 
 #Textmain2 {
     font-family: "Roboto flex", sans-serif;
     font-size: 7vw;
     font-weight: 700;
+    text-shadow: 3px 3px 5px rgba(0,0,0,0.3);
 }
 
 #textmain1 {
@@ -80,16 +115,31 @@ html, body {
     top: -2vw; 
     left: -1vw;
     font-weight: 100;
-
 }
 
 #Textmain3 {
     font-family: "Roboto Mono", sans-serif;
     font-size: 1.6vw;
+    letter-spacing: 2px;
+    position: relative;
+    overflow: hidden;
 }
-/* Hamburger menu and mobile navigation */
+
+#Textmain3::after {
+    content: '|';
+    position: absolute;
+    right: -10px;
+    animation: blink 1s infinite;
+}
+
+@keyframes blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0; }
+}
+
+/* Hamburger menu icon */
 .hamburger {
-  display: none; /* Hide by default on desktop */
+  display: none;
   position: fixed;
   top: 20px;
   right: 20px;
@@ -97,31 +147,53 @@ html, body {
   cursor: pointer;
   z-index: 1001;
   color: white;
+  background: rgba(0,0,0,0.5);
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+}
+
+.hamburger:hover {
+  background: rgba(80, 27, 129, 0.8);
+  transform: scale(1.1);
+}
+
+.nav__wrapper {
+    position: fixed;
+    top: 50%;
+    right: 20px;
+    transform: translateY(-50%);
+    z-index: 1000; 
+    padding: 10px; 
 }
 
 .mobile-menu {
-  font-family: 'Roboto Mono';
+  font-family:'Roboto Mono';
   display: none; 
   list-style: none;
-  padding: 10px;
+  padding: 0;
   margin: 0;
   background-color: rgba(0, 0, 0, 0.9); 
   position: absolute;
-  top: 40px; 
+  top: 45px; 
   right: 0;
-  width: 200px; 
-  border-radius: 5px;
+  width: 250px; 
   border: 1px solid #444; 
-  z-index: 1000;
+  border-radius: 8px;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+  animation: fadeIn 0.3s ease-out;
+  overflow: hidden;
 }
 
 .mobile-menu li {
   border-bottom: 1px solid #444;
   text-align: center;
-}
-
-.mobile-menu li:last-child {
-  border-bottom: none;
+  transition: all 0.3s ease;
 }
 
 .mobile-menu li a {
@@ -129,37 +201,28 @@ html, body {
   padding: 12px;
   color: white;
   text-decoration: none;
-  font-size: 16px;
+  transition: all 0.3s ease;
 }
 
 .mobile-menu li a:hover {
-  background-color: #555; 
-}
-
-/* Desktop navigation styling */
-.nav__wrapper {
-  position: fixed;
-  top: 50%;
-  right: 20px;
-  transform: translateY(-50%);
-  z-index: 1000; 
-  padding: 10px; 
-  display: block; /* By default shown on desktop */
+  background-color: rgba(80, 27, 129, 0.8);
+  transform: translateX(5px);
+  letter-spacing: 1px;
 }
 
 .line {
-  position: fixed;
-  top: 50%;
-  right: 26px;
-  transform: translateY(-50%);
-  height: 182px;
-  width: 4px;
-  z-index: 1000;
-  background-color: #f8f6f6;
-  transition: all 0.3s ease-in-out;
+    position: fixed;
+    top: 50%;
+    right: 26px;
+    transform: translateY(-50%);
+    height: 182px;
+    width: 4px;
+    z-index: 1000;
+    background-color: #f8f6f6;
+    transition: all 0.3s ease-in-out;
+    box-shadow: 0 0 10px rgba(255,255,255,0.5);
 }
 
-/* Side navigation styling */
 #side_nav {
   list-style: none;
   padding: 0;
@@ -168,23 +231,21 @@ html, body {
   flex-direction: column;
   align-items: flex-end;
 }
-/* Removing right margin from elements within the side navigation */
+
 #side_nav li a {
   margin-right: 0;
 }
-/* Styling for each list item the side navigation */
+
 #side_nav li {
   position: relative;
   padding-right: 10px; 
-  
+  margin: 5px 0;
 }
 
-/* Removing bottom margin from the last list item */
 #side_nav li:last-child {
   margin-bottom: 0;
 }
 
-/* Styling for the vertical line before each list item */
 #side_nav li:before {
   content: '';
   position: absolute;
@@ -197,7 +258,6 @@ html, body {
   transition: transform 0.4s ease-in-out;
 }
 
-/* Scaliing the vertical line on hover */
 #side_nav li:hover:before {
   transform: scaleY(1);
 }
@@ -213,14 +273,16 @@ html, body {
   position: relative;
   overflow: hidden;
   font-weight: 600;
+  transition: color 0.3s ease;
 }
 
-/* Changing color on hover */
 #side_nav li a:hover{
   color: #DF058D;
 }
 
-/* Style for the span element within the anchor elements */
+#side_nav li a.active {
+  color: #DF058D;
+}
 
 #side_nav li span {
   display: inline-block;
@@ -229,9 +291,9 @@ html, body {
   border-left: 2px solid #f8f4f4;
   transform: translateX(-100%);
   transition: transform 0.3s ease-in-out;
-} 
+}
 
-/* Second section styling */
+/* Second section - Skills */
 #second-section{
   background-image: url("Images/cubicbg2.png");
   background-position: center;
@@ -244,44 +306,56 @@ html, body {
   position: relative;
   text-align: center;
   min-height: 100vh;
-  padding: 40px 0;
+  padding: 50px 0;
 }
 
 #Textmain4{
-  font-family: "Roboto mono", sans-serif;
-  font-size: 5rem;
-  position: relative;
-  font-weight: 700;
-  color: white;
-  padding-bottom: 40px;
-  margin-top: 20px;
+    font-family: "Roboto mono", sans-serif;
+    font-size: 80px;
+    position: relative;
+    font-weight: 700;
+    color: white;
+    padding-bottom: 57.6px;
+    text-shadow: 2px 4px 8px rgba(0,0,0,0.5);
 }
 
 .container2 {
-  width: 90%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 30px; 
   max-width: 1200px;
-  margin: 0 auto;
-  padding: 0 20px;
+  width: 90%;
+  margin-top: 30px;
 }
 
-.expertise-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-  gap: 20px;
-  justify-content: center;
-  width: 100%;
+.row {
+  display: flex; 
+  gap: 30px; 
 }
 
 .square {
-  border: 1px solid rgb(255, 255, 255);
+  border: 1px solid rgba(255, 255, 255, 0.2);
   text-align: center;
+  width: 340px; 
   padding: 20px;
   height: 340px;
-  transition: all 0.3s ease;
+  transition: all 0.5s ease;
   overflow: hidden; 
   max-width: 100%;
   border-style: solid;
-  width: 100%;
+  border-radius: 10px;
+  backdrop-filter: blur(5px);
+  background: rgba(255, 255, 255, 0.05);
+  box-shadow: 0 15px 25px rgba(0,0,0,0.2);
+  transform: translateY(0);
+}
+
+.square:hover {
+  border-color: #DF058D;
+  transform: translateY(-10px) scale(1.02);
+  box-shadow: 0 20px 30px rgba(0,0,0,0.3), 0 0 20px rgba(223, 5, 141, 0.3);
+  background: rgba(255, 255, 255, 0.1);
 }
 
 .sq1 {
@@ -299,13 +373,17 @@ html, body {
   flex-direction: row; 
   gap: 25px;
   padding-bottom: 0px;
+  align-items: center;
+  justify-content: center;
 }
+
 .top-section-2{
   display: flex;
   flex-direction: row; 
   gap: 5px;
   padding-bottom: 0px;
   justify-content: center;
+  align-items: center;
 }
 
 #sq1font {
@@ -315,14 +393,25 @@ html, body {
   position: relative; 
 }
 
+.htmllogo img, .csslogo img, .kotlinlogo img {
+  transition: transform 0.5s ease, filter 0.5s ease;
+}
+
+.square:hover .htmllogo img, .square:hover .csslogo img, .square:hover .kotlinlogo img {
+  transform: scale(1.1) rotate(5deg);
+  filter: drop-shadow(0 0 8px rgba(255,255,255,0.6));
+}
+
 .htmllogo img {
   width: 50px;
   height: 59px;
 }
+
 .csslogo img{
   width: 66px;
   height: 63px;
 }
+
 .kotlinlogo img{
   width: 50px;
   height: 50px;
@@ -334,21 +423,29 @@ html, body {
   top: 40px;
   z-index: -1;
   height: 0.3em;
-  width: 104%;
-  left: -1%;
+  width: 0%;
+  left: 0;
   background: linear-gradient(65deg, #DF058D 0%, #DF058D 100%, rgba(255, 209, 0, 0) 100%);
+  transition: width 0.5s ease;
 }
 
+.square:hover .chonky-underline-megenta::after {
+  width: 104%;
+  left: -1%;
+}
 
 .h3-wrapper {
   display: flex;
   align-items: center;
   position: relative;
-  
 }
-.h3-wrapper1{display: flex;
+
+.h3-wrapper1 {
+  display: flex;
   align-items: center;
-  position: relative;}
+  position: relative;
+}
+
 .code-tag {
   position: relative;
   display: flex;
@@ -358,8 +455,8 @@ html, body {
   text-align: left;
   font-weight: 400;
   font-size: 19.5px;
-
 }
+
 .code-tag1 {
   font-weight: 200;
   position: relative;
@@ -370,12 +467,6 @@ html, body {
   text-align: left;
   font-weight: 400;
   font-size: 19.5px;
-
-}
-.h3-wrapper1 {
-  display: flex;
-  align-items: center;
-  position: relative;
 }
 
 .h3-wrapper1::before {
@@ -386,6 +477,13 @@ html, body {
   bottom: 9px;
   width: 2px;
   background: grey;
+  transform: scaleY(0);
+  transition: transform 0.4s ease;
+  transform-origin: top;
+}
+
+.square:hover .h3-wrapper1::before {
+  transform: scaleY(1);
 }
 
 .code-tag1::before {
@@ -397,6 +495,13 @@ html, body {
   left: 5px;
   font-size: 17px;
   color: grey;
+  opacity: 0.7;
+  transition: opacity 0.4s ease;
+}
+
+.square:hover .code-tag1::before {
+  opacity: 1;
+  color: #DF058D;
 }
 
 .code-tag1::after {
@@ -408,7 +513,15 @@ html, body {
   left: -2px;
   font-size: 17px;
   color: grey;
+  opacity: 0.7;
+  transition: opacity 0.4s ease;
 }
+
+.square:hover .code-tag1::after {
+  opacity: 1;
+  color: #DF058D;
+}
+
 .code-tag::before {
   font-weight: 400;
   font-family: "Roboto Mono", sans-serif;
@@ -418,6 +531,13 @@ html, body {
   left: 5px;
   font-size: 17px;
   color: grey;
+  opacity: 0.7;
+  transition: opacity 0.4s ease;
+}
+
+.square:hover .code-tag::before {
+  opacity: 1;
+  color: #DF058D;
 }
 
 .code-tag::after {
@@ -429,6 +549,13 @@ html, body {
   left: -2px;
   font-size: 17px;
   color: grey;
+  opacity: 0.7;
+  transition: opacity 0.4s ease;
+}
+
+.square:hover .code-tag::after {
+  opacity: 1;
+  color: #DF058D;
 }
 
 .h3-wrapper::before {
@@ -439,8 +566,16 @@ html, body {
   bottom: -25px;
   width: 2px;
   background: grey;
+  transform: scaleY(0);
+  transition: transform 0.4s ease;
+  transform-origin: top;
 }
 
+.square:hover .h3-wrapper::before {
+  transform: scaleY(1);
+}
+
+/* Third section - Projects */
 #third-section{
   background-image: url("Images/cubicbg3.png");
   background-position: center;
@@ -452,54 +587,22 @@ html, body {
   align-items: center;
   position: relative;
   text-align: center;
-  padding: 60px 0;
+  padding-top: 100px;
   min-height: 100vh;
+  padding-bottom: 50px;
 }
 
 #Textmain5{
   font-family: "Roboto mono", sans-serif;
-  font-size: 5rem;
+  font-size: 84px;
   position: relative;
   font-weight: 700;
   color: white;
+  text-shadow: 2px 4px 8px rgba(0,0,0,0.5);
   margin-bottom: 40px;
 }
 
-.containerS3 {
-  width: 90%;
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 0 20px;
-}
-
-.projects-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
-  gap: 20px;
-  justify-content: center;
-  width: 100%;
-}
-
-.card {
-  margin-bottom: 20px;
-}
-
-.box {
-  height: 300px;
-  position: relative;
-  overflow: hidden;
-  box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.9);
-}
-
-.box img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  display: block;
-}
-
-.projects {
-  display: inline-block;
+.projects{
   width: 220px;
   font-weight: 600;
   font-family: "Roboto flex", sans-serif;
@@ -507,886 +610,232 @@ html, body {
   color: #ffffff;
   text-decoration: none;
   font-size: 19px;
-  background: rgb(80, 27, 129);
+  background: linear-gradient(45deg, rgb(80, 27, 129), rgb(124, 58, 187));
   text-align: center;
-  padding: 15px 10px; 
+  padding: 15px 30px;
+  border-radius: 50px;
+  display: inline-block;
+  transition: all 0.3s ease;
+  box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+  position: relative;
+  overflow: hidden;
 }
 
-.containerS3 .card {
+.projects:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 25px rgba(0,0,0,0.5);
+  background: linear-gradient(45deg, rgb(124, 58, 187), rgb(80, 27, 129));
+}
+
+.projects::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+  transition: 0.5s;
+}
+
+.projects:hover::before {
+  left: 100%;
+}
+
+.containerS3 {
   position: relative;
-  height: 250px;
+  width: 1000px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin: 25px;
+  gap: 40px;
+  max-width: 1250px;
+}
+
+.card {
+  position: relative;
+  height: 300px;
   background: #fff;
   display: flex;
   margin: 30px 0;
-}
-
-.overlay {
-  color: white;
-  width: 100%;
-  height: 0px;
-  background: linear-gradient(transparent, #0e3b53 78%);
-  font-family: "Roboto mono", sans-serif;
-  position: absolute;
-  left: 0;
-  bottom: 0;
+  border-radius: 15px;
   overflow: hidden;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-  padding: 0 120px; /* Adjust padding to fit the larger card size */
-  text-align: center;
-  font-size: 20px;
-  transition: height 0.5s;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+  transition: transform 0.5s ease, box-shadow 0.5s ease;
 }
 
-.overlay h3 {
-  font-weight: 700;
-  margin-bottom: 5px;
-  margin-top: 30%; /* Adjust to fit within the larger card */
-  font-family: "Roboto flex", sans-serif;
-  font-size: 24px; /* Adjust font size to fit the larger card */
-  letter-spacing: 2px;
+.card:hover {
+  transform: translateY(-15px);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5), 0 0 30px rgba(223, 5, 141, 0.3);
 }
 
-.overlay p {
-  margin-top: 5px;
-}
-
-.overlay a {
-  font-weight: 600;
-  font-family: "Roboto flex", sans-serif;
-  margin-top: 10px;
-  color: #ffffff;
-  text-decoration: none;
-  font-size: 19px; /* Adjust font size to fit the larger card */
-  background: rgb(80, 27, 129);
-  text-align: center;
-  padding: 5px 10px; /* Adjust padding to fit the larger card */
-}
-
-
-.box:hover .overlay {
-  height: 100%;
-}
 .box {
-  height: 300px; /* Maintain height to keep cards rectangular */
+  height: 300px;
   position: relative;
   overflow: hidden;
-  box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.9);
+  width: 600px;
 }
 
 .box img {
-  width: 600px;
-  height: 100%; /* Ensure image covers the whole card */
-  object-fit: cover; /* Fit the image within the card without zooming */
-  display: block;
-  transition: none; /* Remove the zoom effect */
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.8s ease;
 }
 
-
-@media only screen and (max-width: 370px) {
-  .decor-images .decorimg{
-    width: 150px !important;
-  }
-  
-  .code-tag, .code-tag1{
-   font-size: 12px !important ;
-  }
-.code-tag1::before {
-  font-weight: 400;
-  font-family: "Roboto Mono", sans-serif;
-  content: "<h3>";
-  position: absolute;
-  top: -5px;
-  left: 9px;
-  font-size: 15px;
-  color: grey;
-}
-.htmllogo img{
-  width: 40px;
-  height: 45px;
-}
-.csslogo img{
-  width: 55px;
-  height: 55px;
-}
-.kotlinlogo img{
-  width: 30px;
-  height: 42px;
-}
-.code-tag1::after {
-  font-weight: 400;
-  font-family: "Roboto Mono", sans-serif;
-  content: "</h3>";
-  position: absolute;
-  bottom: -25px;
-  left: -0px;
-  font-size: 15px;
-  color: grey;
-}
-.code-tag::before {
-  font-weight: 400;
-  font-family: "Roboto Mono", sans-serif;
-  content: "<h3>";
-  position: absolute;
-  top: -5px;
-  left: 5px;
-  font-size: 15px;
-  color: grey;
+.box:hover img {
+  transform: scale(1.1);
 }
 
-.code-tag::after {
-  font-weight: 400;
-  font-family: "Roboto Mono", sans-serif;
-  content: "</h3>";
-  position: absolute;
-  bottom: -45px;
-  left: -0px;
-  font-size: 15px;
-  color: grey;
-}
-
-.h3-wrapper::before {
-  content: "";
-  position: absolute;
-  left: 25px;
-  top: 30px;
-  bottom: -15px;
-  width: 2px;
-  background: grey;
-}
-.top-section,.top-section-2 {
-  gap: 10px;
-}
-
-.container2 {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-.row {
-  flex-direction: column;
-  align-items: center;
-  gap: 20px;
-}
-.square {
-  width: 80%;
-  height: 310px !important;
-}
-.hamburger {
-  position: absolute;
-  display: block;
+.overlay {
   color: white;
-}
-.nav__wrapper {
-display: none; /* Hide the original nav */
-}
-.nav__wrapper.active {
-display: flex;
-position: fixed;
-top: 0;
-right: 0;
-background-color: rgba(0, 0, 0, 0.8);
-width: 100%;
-height: 100%;
-justify-content: center;
-align-items: center;
-flex-direction: column;
-z-index: 1000;
-}
-
-#side_nav {
-display: flex;
-flex-direction: column;
-align-items: center;
-}
-
-#side_nav li {
-padding: 20px 0;
-}
-
-.line{
-display: none;
-}
-.containerS3{
-  flex-direction: column;
-  align-items: center;
-}
-  .containerS3 .card{
-    flex-direction: column;
-    width: 250px;
-    height: auto;
-  }
-  .containerS3 .card .imgbg{
-    position: relative;
-  }
-  .containerS3 .card .imgbg,
-  .containerS3 .card:hover .imgbg{
-    width: 100%;
-    height: 200px;
-    left: 0;
-  }
-
-
-  .containerS3 .card .content{
-    position: relative;
-    width: 100%;
-  }
-#Textmain2 {
-  font-size: 90px;
-}
-
-#textmain1 {
-  display: none;
-}
-
-#Textmain3 {
-font-size: 20px;
-line-height: 1em;
-letter-spacing: 1.6px;}
-
-.logo {
-font-size: 20px;
-}
-#Textmain4{
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(to top, rgba(14, 59, 83, 0.95), transparent);
   font-family: "Roboto mono", sans-serif;
-  font-size:52px !important;
-  font-weight: 700;
-
-}
- 
-  .code-tag, .code-tag1{
-  font-size: 14px !important;}
-  
-.h3-wrapper1::before {
-  bottom: 9px;
-}
-
-.code-tag1::before {
-  font-weight: 400;
-  font-family: "Roboto Mono", sans-serif;
-  content: "<h3>";
   position: absolute;
-  top: -5px;
-  left: 5px;
-  font-size: 12px !important;
-  color: grey;
-}
-
-.code-tag1::after {
-  font-weight: 400;
-  font-family: "Roboto Mono", sans-serif;
-  content: "</h3>";
-  position: absolute;
-  bottom: -25px;
-  left: -2px;
-  font-size: 17px;
-  color: grey;
-}
-.code-tag::before {
-  font-weight: 400;
-  font-family: "Roboto Mono", sans-serif;
-  content: "<h3>";
-  position: absolute;
-  top: -5px;
-  left: 5px;
-  font-size: 17px;
-  color: grey;
-}
-
-.code-tag::after {
-  font-weight: 400;
-  font-family: "Roboto Mono", sans-serif;
-  content: "</h3>";
-  position: absolute;
-  bottom: -55px;
-  left: -2px;
-  font-size: 17px;
-  color: grey;
-}
-
-.h3-wrapper::before {
-  content: "";
-  position: absolute;
-  left: 25px;
-  top: 30px;
-  bottom: -25px;
-  width: 2px;
-  background: grey;
-}
-.overlay {
-  width: 100%;
-  height: 210px;
-}
-.box img {
-  width: 600px;
-  height: 100%; /* Ensure image covers the whole card */
-  object-fit: cover; /* Fit the image within the card without zooming */
-  display: block;
-  transform: translate(-20%,0%);
-}
-.overlay h3 {
-  text-shadow: 2px 2px 14px rgba(0, 0, 0, 0.8);
-  font-weight: 800;
-  margin-bottom: 5px;
-  margin-top: 30%; 
-  font-size: 22px;
-  width: 210px;
-  letter-spacing: 2px;
-}
-.overlay p {
-  font-size: 13px;
-  width: 140px;
-  padding-top: 10px;
-  padding-bottom: 10px;;
-  margin-top: 0px;
-}
-.overlay a {
-
-  width: 100px;
-  font-size: 12px; 
-  border-radius: 50px;
-  padding: 9px 10px; 
-}
-.github-button{
-
-  display: none;
-}
-
- }
- @media only screen and (min-width: 371px) and (max-width: 520px) {
-.row {
-    flex-direction: column;
-    align-items: center;
-    gap: 20px;
-}
-.square {
-    width: 80%;
-    height: 297px !important;
-}
-  .hamburger {
-    position: absolute;
-    display: block;
-    color: white;
-}
-.nav__wrapper {
-  display: none; /* Hide the original nav */
-}
-.nav__wrapper.active {
-  display: flex;
-  position: fixed;
-  top: 0;
-  right: 0;
-  background-color: rgba(0, 0, 0, 0.8);
-  width: 100%;
-  height: 100%;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-  z-index: 1000;
-}
-
-#side_nav {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-#side_nav li {
-  padding: 20px 0;
-}
-
-.line{
-  display: none;
-}
-.containerS3{
-  flex-direction: column;
-  align-items: center;
-}
-  .containerS3 .card{
-    flex-direction: column;
-    width: 350px;
-    height: auto;
-  }
-  .containerS3 .card .imgbg{
-    position: relative;
-  }
-  .containerS3 .card .imgbg,
-  .containerS3 .card:hover .imgbg{
-    width: 100%;
-    height: 200px;
-    left: 0;
-  }
-
-
-  .containerS3 .card .content{
-    position: relative;
-    width: 100%;
-  }
-  #Textmain2 {
-    font-size: 90px;
-}
-
-#textmain1 {
-    display: none;
-}
-
-#Textmain3 {
-  font-size: 20px;
-  line-height: 1em;
-  letter-spacing: 1.6px;}
-
-.logo {
-  font-size: 20px;
-}
-
-  #Textmain4{
-    font-family: "Roboto mono", sans-serif;
-    font-size:52px !important;
-    font-weight: 700;
-
-}
- 
-  .code-tag, .code-tag1{
-  font-size: 14px !important;}
-  
-.h3-wrapper1::before {
-  bottom: 9px;
-}
-
-.code-tag1::before {
-  font-weight: 400;
-  font-family: "Roboto Mono", sans-serif;
-  content: "<h3>";
-  position: absolute;
-  top: -5px;
-  left: 5px;
-  font-size: 12px !important;
-  color: grey;
-}
-
-.code-tag1::after {
-  font-weight: 400;
-  font-family: "Roboto Mono", sans-serif;
-  content: "</h3>";
-  position: absolute;
-  bottom: -25px;
-  left: -2px;
-  font-size: 17px;
-  color: grey;
-}
-.code-tag::before {
-  font-weight: 400;
-  font-family: "Roboto Mono", sans-serif;
-  content: "<h3>";
-  position: absolute;
-  top: -5px;
-  left: 5px;
-  font-size: 17px;
-  color: grey;
-}
-
-.code-tag::after {
-  font-weight: 400;
-  font-family: "Roboto Mono", sans-serif;
-  content: "</h3>";
-  position: absolute;
-  bottom: -55px;
-  left: -2px;
-  font-size: 17px;
-  color: grey;
-}
-
-.h3-wrapper::before {
-  content: "";
-  position: absolute;
-  left: 25px;
-  top: 30px;
-  bottom: -25px;
-  width: 2px;
-  background: grey;
-}
-.overlay {
-  width: 100%;
-  height: 210px;
-}
-.box img {
-  width: 600px;
-  height: 100%; /* Ensure image covers the whole card */
-  object-fit: cover; /* Fit the image within the card without zooming */
-  display: block;
-  transform: translate(-20%,0%);
-}
-.overlay h3 {
-  text-shadow: 2px 2px 14px rgba(0, 0, 0, 0.8);
-  font-weight: 800;
-  margin-bottom: 5px;
-  margin-top: 30%; 
-  font-size: 22px;
-  width: 210px;
-  letter-spacing: 2px;
-}
-.overlay p {
-  font-size: 13px;
-  width: 140px;
-  padding-top: 10px;
-  padding-bottom: 0px;;
-  margin-top: 0px;
-}
-.overlay a {
-
-  width: 100px;
-  font-size: 12px; 
-  border-radius: 50px;
-  padding: 9px 10px; 
-}
-.decor-images .decorimg {
-  filter: contrast(3);
-  width: 200px !important;
-  position: absolute;
-  top: -130px !important;
   left: 0;
- 
-}.github-button{
-  right: 70px !important;
-}
- }
-
-
-/* Small devices such as large phones (640px and up) */
-@media only screen and (min-width: 521px)and (max-width: 640px) {
-  .github-button{
-    right: 70px !important;
-  }
-  .decor-images .decorimg {
-    filter: contrast(3);
-    width: 220px !important;
-    position: absolute;
-    top: -130px !important;
-    left: 0;
-   
-  }
- #Textmain2{
-  font-size: 50px !important;
- }
- #Textmain4{
-  font-size: 55px !important;
- }
-
- .code-tag{
-  font-size: 18px
- }
-
-
- .container2 {
+  bottom: -100%;
+  overflow: hidden;
   display: flex;
-  flex-direction: column;
   align-items: center;
-}
-.row {
+  justify-content: center;
   flex-direction: column;
-  align-items: center;
-  gap: 20px;
-}
-.square {
-  width: 80%;
-  height: 295px !important;
-}
-.hamburger {
-  position: absolute;
-  display: block;
-  color: white;
-}
-.nav__wrapper {
-display: none; /* Hide the original nav */
-}
-.nav__wrapper.active {
-display: flex;
-position: fixed;
-top: 0;
-right: 0;
-background-color: rgba(0, 0, 0, 0.8);
-width: 100%;
-height: 100%;
-justify-content: center;
-align-items: center;
-flex-direction: column;
-z-index: 1000;
+  padding: 20px;
+  text-align: center;
+  transition: bottom 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
-#side_nav {
-display: flex;
-flex-direction: column;
-align-items: center;
+.box:hover .overlay {
+  bottom: 0;
 }
 
-#side_nav li {
-padding: 20px 0;
-}
-
-.line{
-display: none;
-}
-.containerS3{
-  flex-direction: column;
-  align-items: center;
-}
-  .containerS3 .card{
-    flex-direction: column;
-    width: 400px;
-    height: auto;
-  }
-  .containerS3 .card .imgbg{
-    position: relative;
-  }
-  .containerS3 .card .imgbg,
-  .containerS3 .card:hover .imgbg{
-    width: 100%;
-    height: 200px;
-    left: 0;
-  }
-
-
-  .containerS3 .card .content{
-    position: relative;
-    width: 100%;
-  }
-  #Textmain2 {
-    font-size: 90px;
-}
-
-#textmain1 {
-  display: none;
-}
-
-#Textmain3 {
-font-size: 20px;
-line-height: 1em;
-letter-spacing: 1.6px;}
-
-.logo {
-font-size: 20px;
-}
- 
-.overlay {
-  width: 100%;
-  height: 210px;
-  padding-bottom: 20px;
-}
-.box img {
-  width: 600px;
-  height: 100%; /* Ensure image covers the whole card */
-  object-fit: cover; /* Fit the image within the card without zooming */
-  display: block;
-  transform: translate(-20%,0%);
-}
 .overlay h3 {
-  text-shadow: 2px 2px 14px rgba(0, 0, 0, 0.8);
-  font-weight: 800;
-  margin-bottom: 5px;
-  margin-top: 30%; 
-  font-size: 22px;
-  width: 210px;
+  font-weight: 700;
+  margin-bottom: 15px;
+  font-family: "Roboto flex", sans-serif;
+  font-size: 24px;
   letter-spacing: 2px;
-}
-.overlay p {
-  font-size: 13px;
-  width: 140px;
-  padding-top: 10px;
-  padding-bottom: 0px;;
-  margin-top: 0px;
-}
-.overlay a {
-
-  width: 100px;
-  font-size: 12px; 
-  border-radius: 50px;
-  padding: 9px 10px; 
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+  transform: translateY(20px);
+  opacity: 0;
+  transition: all 0.4s ease 0.2s;
 }
 
+.box:hover .overlay h3 {
+  transform: translateY(0);
+  opacity: 1;
 }
 
+.overlay .project-details {
+  margin: 10px 0;
+  font-size: 16px;
+  line-height: 1.6;
+  transform: translateY(20px);
+  opacity: 0;
+  transition: all 0.4s ease 0.3s;
+  max-width: 80%;
+}
 
-@media only screen and (min-width: 641px) and (max-width:768px){
-  .github-button{
-    right: 70px!important;
-  }
-  .decor-images .decorimg {
-    filter: contrast(3);
-    width: 250px !important;
-    position: absolute;
-    top: -130px !important;
-    left: 0;
-   
-  }
-  .container2 {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+.box:hover .overlay .project-details {
+  transform: translateY(0);
+  opacity: 1;
 }
-.row {
-    flex-direction: column;
-    align-items: center;
-    gap: 20px;
-}
-.square {
-    width: 80%;
-    height: 295px !important;
-}
-  .hamburger {
-    position: absolute;
-    display: block;
-    color: white;
-}
-.nav__wrapper {
-  display: none; /* Hide the original nav */
-}
-.nav__wrapper.active {
+
+.overlay .tech-stack {
   display: flex;
-  position: fixed;
+  gap: 10px;
+  margin: 15px 0;
+  flex-wrap: wrap;
+  justify-content: center;
+  transform: translateY(20px);
+  opacity: 0;
+  transition: all 0.4s ease 0.4s;
+}
+
+.box:hover .overlay .tech-stack {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+.tech-stack span {
+  background: rgba(255, 255, 255, 0.2);
+  padding: 5px 10px;
+  border-radius: 15px;
+  font-size: 14px;
+  backdrop-filter: blur(5px);
+  transition: all 0.3s ease;
+}
+
+.tech-stack span:hover {
+  background: rgba(255, 255, 255, 0.3);
+  transform: scale(1.05);
+}
+
+.overlay .buttons {
+  display: flex;
+  gap: 15px;
+  margin-top: 20px;
+  transform: translateY(20px);
+  opacity: 0;
+  transition: all 0.4s ease 0.5s;
+}
+
+.box:hover .overlay .buttons {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+.overlay .buttons a {
+  font-weight: 600;
+  font-family: "Roboto flex", sans-serif;
+  color: #ffffff;
+  text-decoration: none;
+  font-size: 16px;
+  background: linear-gradient(45deg, rgb(80, 27, 129), rgb(124, 58, 187));
+  padding: 8px 20px;
+  border-radius: 25px;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.overlay .buttons a:hover {
+  background: linear-gradient(45deg, rgb(124, 58, 187), rgb(80, 27, 129));
+  transform: scale(1.05);
+  box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+}
+
+.overlay .buttons a::before {
+  content: '';
+  position: absolute;
   top: 0;
-  right: 0;
-  background-color: rgba(0, 0, 0, 0.8);
+  left: -100%;
   width: 100%;
   height: 100%;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-  z-index: 1000;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+  transition: 0.5s;
 }
 
-#side_nav {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+.overlay .buttons a:hover::before {
+  left: 100%;
 }
 
-#side_nav li {
-  padding: 20px 0;
-}
-
-.line{
-  display: none;
-}
-.containerS3{
-  flex-direction: column;
-  align-items: center;
-}
-  .containerS3 .card{
-    flex-direction: column;
-    width: 400px;
-    height: auto;
-  }
-  .containerS3 .card .imgbg{
-    position: relative;
-  }
-  .containerS3 .card .imgbg,
-  .containerS3 .card:hover .imgbg{
-    width: 100%;
-    height: 200px;
-    left: 0;
-  }
-
-
-  .containerS3 .card .content{
-    position: relative;
-    width: 100%;
-  }
-  #Textmain2 {
-    font-size: 90px;
-}
-
-#textmain1 {
-    display: none;
-}
-
-#Textmain3 {
-  font-size: 20px;
-  line-height: 1em;
-  letter-spacing: 1.6px;}
-
-.logo {
-  font-size: 20px;
-}
- 
-.overlay {
-  width: 100%;
-  height: 210px;
-  padding-bottom: 20px;
-}
-.box img {
-  width: 600px;
-  height: 100%; /* Ensure image covers the whole card */
-  object-fit: cover; /* Fit the image within the card without zooming */
-  display: block;
-  transform: translate(-20%,0%);
-}
-.overlay h3 {
-  text-shadow: 2px 2px 14px rgba(0, 0, 0, 0.8);
-  font-weight: 800;
-  margin-bottom: 5px;
-  margin-top: 30%; 
-  font-size: 22px;
-  width: 210px;
-  letter-spacing: 2px;
-}
-.overlay p {
-  font-size: 13px;
-  width: 140px;
-  padding-top: 10px;
-  padding-bottom: 0px;;
-  margin-top: 0px;
-}
-.overlay a {
-
-  width: 100px;
-  font-size: 12px; 
-  border-radius: 50px;
-  padding: 9px 10px; 
-}
-
-}
-/* Large devices such as laptops (1024px and up) */
-@media only screen and (min-width: 1024px) {...}
-@media only screen and (min-width: 769px) and (max-width: 1100px) {
-
-  .row {
-    display: grid;
-    grid-template-columns: 1fr 1fr; /* Two columns */
-    gap: 20px; /* Adjust gap between boxes */
-    justify-content: center; /* Center grid items */
-  }
-  
-  .containerS3{
-    flex-direction: column;
-    align-items: center;
-  }
-  .square {
-    
-    max-width: none; /* Remove any max-width restrictions */
-    margin-bottom: 0; /* Remove margin between items, if necessary */
-  }
-
-}
-/* Largest devices such as desktops (1280px and up) */
-@media only screen and (min-width: 1280px) {...}
-
-
-
+/* Footer */
 footer {
   color: white;
   text-align: center;
   position: relative;
 }
 
-/* styling the footer background */
 #footercolor{
-  padding: 100px 50px 50px ;
-  background:url("Images/cubicbg3.png");
+  padding: 150px 50px 50px;
+  background: url("Images/cubicbg3.png");
+  background-position: center;
+  background-size: cover;
 }
 
-/* Styling the text above button */
 #project1txt{
   font-size: 35px;
   font-family: 'Handlee';
@@ -1394,26 +843,33 @@ footer {
   text-align: center;
 } 
 
-/* Styling the text for footer*/
 #footertxt{
   padding: 10px;
   font-size: 20px;
   font-family: 'Handlee';
   text-align: center;
 }
-/* Styling github button on top right */
+
 .github-button {
   z-index: 10;
   position: absolute;
   top: 10px;
   right: 10px;
-  padding: 10px;
-  border: 2px white solid;
-  border-radius: 5px;
-  box-shadow: 0 2px 5px rgb(255, 255, 255);
+  padding: 10px 15px;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-radius: 50px;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+  backdrop-filter: blur(10px);
+  background: rgba(0,0,0,0.2);
+  transition: all 0.3s ease;
 }
 
-/* Styling github button text color */
+.github-button:hover {
+  border-color: rgba(255, 255, 255, 0.8);
+  transform: translateY(-3px);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.5);
+}
+
 .github-button a {
   color: #ddd;
   display: flex;
@@ -1421,43 +877,82 @@ footer {
   text-decoration: none;
   font-weight: bold;
   font-family: 'Roboto Mono';
+  gap: 8px;
 }
 
-/* Styling for the 'Get in touch' Button */
 #footerbtn {
-  font-family:'Roboto Condensed';
-  background: linear-gradient( purple, blue);
+  font-family: 'Roboto Condensed';
+  background: linear-gradient(45deg, purple, blue);
   border: none;
-  width: 155px;
-  height: 45px;
-  transition: 0.9s;
-  cursor:grabbing;
-  border-radius: 41px;
+  width: 180px;
+  height: 50px;
+  transition: all 0.5s ease;
+  cursor: pointer;
+  border-radius: 50px;
+  margin: 10px;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 10px 20px rgba(0,0,0,0.3);
 }
 
-/* Styling for text in 'Get in touch' Button */
+#footerbtn:hover {
+  background: linear-gradient(45deg, blue, purple);
+  transform: translateY(-5px);
+  box-shadow: 0 15px 25px rgba(0,0,0,0.5);
+}
+
+#footerbtn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+  transition: 0.5s;
+}
+
+#footerbtn:hover::before {
+  left: 100%;
+}
+
 #footerbtn a {
   text-decoration: none;
   font-size: 20px;
-  color: rgb(216, 203, 203);
+  color: rgb(245, 245, 245);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  letter-spacing: 1px;
+  position: relative;
+  z-index: 1;
 }
 
-/* Changing the text when you hover */
-#footerbtn:hover {
-  background: linear-gradient(to right, purple, rgb(14, 14, 141));
-}
-
-/* Aligning the social media icons */
 .social-media {
-  margin-left: 10px;
+  margin: 20px 0;
+  display: flex;
+  justify-content: center;
 }
 
-/* adding space between the icons */
 .social-media a {
-  margin-right: 16px;
+  margin: 0 16px;
+  transition: all 0.3s ease;
+  display: inline-block;
 }
 
-/* Styling the decoration images for footer  */
+.social-media a:hover {
+  transform: translateY(-5px) rotate(5deg);
+  filter: drop-shadow(0 5px 15px rgba(255,255,255,0.3));
+}
+
+.social-media img {
+  width: 30px;
+  height: auto;
+  transition: all 0.3s ease;
+}
+
 .decor-images .decorimg {
   filter: contrast(3);
   width: 350px;
@@ -1465,275 +960,36 @@ footer {
   top: -120px;
   left: 0;
   margin-left: -60px;
+  animation: float 6s ease-in-out infinite;
 }
-/* styling the lines to seperate the footer */
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-15px); }
+}
+
 .lines-part {
   position: relative;
   width: 100%;
   height: 200px; 
 }
 
-/* styling the lines of footer */
 .horzoline1,
 .horzoline2,
 .horzoline3 {
   position: absolute;
   margin-top: -50px;
   height: 3px;
-  width: 85%; 
+  width: 0; 
   background: linear-gradient(to right, rgb(73, 2, 121),#19191a3d);
   z-index: 1;
+  animation: lineExpand 1.5s ease-out forwards;
 }
 
-/* Aligning the lines no.1 */
+@keyframes lineExpand {
+  from { width: 0; }
+  to { width: 85%; }
+}
+
 .horzoline1 {
   top: 30%;
-  left: 15%;
-  z-index: 0;
-}
-
-/* Aligning the lines no.2 */
-.horzoline2 {
-  top: 33%;
-  left: 15%;
-  z-index: 0;
-}
-
-/* Aligning the lines no.3 */
-.horzoline3 {
-  top: 36%;
-  left: 15%;
-  z-index: 0;
-}
-
-/* Removing the extra space  */
-.footerheading{
-  margin-top: -100px;
-}
-
-
-
-/* Styling the name at the footer */
-.name {
-  margin-top: -79px;
-  display: inline-block;
-  vertical-align: middle;
-  margin-left: 10px;
-  font-size: 28px;
-  font-weight: 700;
-  font-family: "Roboto flex" ;
-}
-
-/* Adding seperator between the logo and text*/
-.separator {
-  display: inline-block;
-  height: 100px;
-  width: 4px;
-  background-color: #ff00f2;
-}
-
-/* Styling github button on top right */
-.github-button {
-  position: absolute;
-  top: 10px;
-  right: 20px;
-  padding: 10px;
-  border: 2px white solid;
-  border-radius: 5px;
-  box-shadow: 0 2px 5px rgb(255, 255, 255);
-}
-
-/* Styling github button text color */
-.github-button a {
-  color: #ddd;
-  display: flex;
-  align-items: center;
-  text-decoration: none;
-  font-weight: bold;
-  font-family: 'Roboto Mono';
-}
-
-/* Extra small devices (phones, 370px and down) */
-@media only screen and (max-width: 370px) {
-  /* Display hamburger menu */
-  .hamburger {
-    display: block;
-  }
-  .nav__wrapper {
-    display: none;
-  }
-  .line {
-    display: none;
-  }
-  
-  /* Header text sizes */
-  #Textmain2 {
-    font-size: 2rem;
-  }
-  #textmain1 {
-    display: none;
-  }
-  #Textmain3 {
-    font-size: 1rem;
-  }
-  #Textmain4 {
-    font-size: 2rem !important;
-  }
-  #Textmain5 {
-    font-size: 2rem;
-  }
-  
-  /* Projects grid */
-  .projects-grid {
-    grid-template-columns: 1fr;
-  }
-  
-  /* Expertise cards */
-  .expertise-grid {
-    grid-template-columns: 1fr;
-  }
-  
-  /* Adjust image sizes and positioning */
-  .htmllogo img {
-    width: 40px;
-    height: 45px;
-  }
-  .csslogo img {
-    width: 55px;
-    height: 55px;
-  }
-  .kotlinlogo img {
-    width: 30px;
-    height: 42px;
-  }
-  
-  /* Adjust typography for smaller screens */
-  .code-tag, .code-tag1 {
-    font-size: 12px !important;
-  }
-  
-  /* Adjust footer elements */
-  .decor-images .decorimg {
-    width: 150px !important;
-  }
-  
-  /* Hide GitHub button on very small screens */
-  .github-button {
-    display: none;
-  }
-  
-  /* Fix project card images on small screens */
-  .box img {
-    transform: none;
-  }
-}
-
-/* Small devices (large phones, 371px to 520px) */
-@media only screen and (min-width: 371px) and (max-width: 520px) {
-  /* Display hamburger menu */
-  .hamburger {
-    display: block;
-  }
-  .nav__wrapper {
-    display: none;
-  }
-  .line {
-    display: none;
-  }
-  
-  /* Header text sizes */
-  #Textmain2 {
-    font-size: 2.5rem;
-  }
-  #Textmain4 {
-    font-size: 2.5rem !important;
-  }
-  
-  /* Projects grid */
-  .projects-grid {
-    grid-template-columns: 1fr;
-  }
-  
-  /* Expertise grid */
-  .expertise-grid {
-    grid-template-columns: 1fr;
-  }
-  
-  /* Adjust footer elements */
-  .decor-images .decorimg {
-    width: 200px !important;
-    top: -130px !important;
-  }
-  .github-button {
-    right: 70px !important;
-  }
-  
-  /* Fix project card images */
-  .box img {
-    transform: none;
-  }
-}
-
-/* Medium devices (tablets, 521px to 768px) */
-@media only screen and (min-width: 521px) and (max-width: 768px) {
-  /* Display hamburger menu */
-  .hamburger {
-    display: block;
-  }
-  .nav__wrapper {
-    display: none;
-  }
-  .line {
-    display: none;
-  }
-  
-  /* Projects grid - 2 columns on medium screens */
-  .projects-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-  
-  /* Expertise grid - 2 columns on medium screens */
-  .expertise-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-  
-  /* Fix footer positioning */
-  .decor-images .decorimg {
-    width: 250px !important;
-    top: -130px !important;
-  }
-  .github-button {
-    right: 70px !important;
-  }
-}
-
-/* Large devices (desktops, 769px and up) */
-@media only screen and (min-width: 769px) {
-  /* Hide hamburger menu */
-  .hamburger {
-    display: none;
-  }
-  .nav__wrapper {
-    display: block;
-  }
-  
-  /* Projects grid - 2 columns on large screens */
-  .projects-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-  
-  /* Expertise grid - 3 columns on large screens */
-  .expertise-grid {
-    grid-template-columns: repeat(3, 1fr);
-  }
-}
-
-/* Extra large devices */
-@media only screen and (min-width: 1200px) {
-  /* Projects grid - 2 columns on extra large screens */
-  .projects-grid {
-    grid-template-columns: repeat(2, 1fr);
-    max-width: 1000px;
-    margin: 0 auto;
-  }
-}
